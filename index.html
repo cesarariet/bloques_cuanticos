@@ -1,0 +1,100 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--     <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js/dist/mindar-image.prod.js"></script>
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js/dist/mindar-image-aframe.prod.js"></script> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
+  </head>
+  <body>
+    <!--     <a-scene
+      mindar-image="imageTargetSrc: ./targets.mind;"
+      vr-mode-ui="enabled: false"
+      device-orientation-permission-ui="enabled: false"
+    > -->
+    <a-scene
+      id="escena"
+      mindar-image="imageTargetSrc: ./einstein_bohr.mind;"
+      color-space="sRGB"
+      renderer="colorManagement: true, physicallyCorrectLights"
+      vr-mode-ui="enabled: false"
+      device-orientation-permission-ui="enabled: false"
+    >
+      <a-camera position="0 0 0" look-controls="enabled: true"></a-camera>
+      <a-entity mindar-image-target="targetIndex: 0">
+        <a-plane
+          id="plano0"
+          color="red"
+          opaciy="0.1"
+          position="0 0 0"
+          height="1"
+          width="1"
+          rotation="0 0 0"
+        ></a-plane>
+      </a-entity>
+      <a-entity mindar-image-target="targetIndex: 1">
+        <a-cylinder
+          id="cilindro1"
+          color="green"
+          opaciy="0.5"
+          position="0 0 0"
+          height=".2"
+          radius=".5"
+          rotation="90 0 0"
+          visible="false"
+          shadow="cast: true; receive: true"
+        >
+          ></a-cylinder
+        >
+        <a-box
+          id="caja1"
+          width=".5"
+          height=".5"
+          depth=".5"
+          position="0 0 0"
+          rotation="0 45 0"
+          color="green"
+          shadow="cast: true; receive: true"
+        >
+        </a-box>
+      </a-entity>
+      <script defer>
+        let a_elemento0 = document.querySelector("#plano0");
+        let a_cilindro1 = document.querySelector("#cilindro1");
+        let a_caja1 = document.querySelector("#caja1");
+        let a_escena = document.querySelector("#escena");
+        let vista = "0";
+
+        a_escena.addEventListener("targetFound", (event) => {
+          let presente =
+            event.target.components["mindar-image-target"].attrValue
+              .targetIndex;
+
+          if (presente != vista) {
+            console.log("es distinta vista, ", vista, presente);
+            vista = presente;
+
+            let colors = ["red", "blue"];
+            let coin = Math.floor(Math.random() * 1.9999);
+            let color = colors[coin];
+            if (presente == "0") {
+              a_elemento0.setAttribute("color", color);
+            } else {
+              if (coin == 0) {
+                a_cilindro1.setAttribute("visible", true);
+                a_caja1.setAttribute("visible", false);
+                console.log("sale 0 y coin ", coin);
+              } else {
+                a_cilindro1.setAttribute("visible", false);
+                a_caja1.setAttribute("visible", true);
+                console.log("sale 1 y coin ", coin);
+              }
+            }
+          }
+        });
+      </script>
+    </a-scene>
+  </body>
+</html>

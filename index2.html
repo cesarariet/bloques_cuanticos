@@ -1,0 +1,103 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js/dist/mindar-image.prod.js"></script>
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js/dist/mindar-image-aframe.prod.js"></script>
+  </head>
+  <body>
+    <a-scene
+      id="escena"
+      mindar-image="imageTargetSrc: ./mejores.mind;"
+      color-space="sRGB"
+      renderer="colorManagement: true, physicallyCorrectLights"
+      vr-mode-ui="enabled: false"
+      device-orientation-permission-ui="enabled: false"
+    >
+      <a-camera position="0 0 0" look-controls="enabled: true"></a-camera>
+      <a-entity mindar-image-target="targetIndex: 0">
+        <a-plane
+          id="e0"
+          color="red"
+          opaciy="0.5"
+          position="0 0 0"
+          height=".5"
+          width=".5"
+          rotation="0 0 0"
+        ></a-plane>
+        </a-entity>
+       <a-entity mindar-image-target="targetIndex: 1">
+        <a-plane
+          id="e1"
+          color="red"
+          opaciy="0.5"
+          position="0 0 0"
+          height=".5"
+          width=".5"
+          rotation="0 0 0"
+        ></a-plane>
+        </a-entity>
+       <a-entity mindar-image-target="targetIndex: 2">
+        <a-plane
+          id="e2"
+          color="red"
+          opaciy="0.5"
+          position="0 0 0"
+          height=".5"
+          width=".5"
+          rotation="0 0 0"
+        ></a-plane>
+        </a-entity>
+       <a-entity mindar-image-target="targetIndex: 3">
+        <a-circle
+          id="e3"
+          radius=".5"
+          color="red"
+          opaciy="0.5"
+          position="0 0 0"
+          rotation="0 0 0"
+        ></a-cirle>
+        </a-entity>
+       <a-entity mindar-image-target="targetIndex: 4">
+        <a-circle
+          id="e4"
+          radius=".5"
+          color="red"
+          opaciy="0.5"
+          position="0 0 0"
+          rotation="0 0 0"
+        ></a-cirle>
+        </a-entity>
+       <a-entity mindar-image-target="targetIndex: 5">
+        <a-circle
+          id="e5"
+          radius=".5"
+          color="red"
+          opaciy="0.5"
+          position="0 0 0"
+          rotation="0 0 0"
+        ></a-cirle>
+        </a-entity>
+      <script defer>
+        var a_escena =document.getElementById("escena");
+        var estado = [false,false,false,true,true,true]; 
+        a_escena.addEventListener("targetFound", (event) => {
+          let presente =
+            event.target.components["mindar-image-target"].attrValue
+              .targetIndex;
+          let elemento = document.getElementById(`e${presente}`);
+          console.log("Se muestra la imagen ", presente);
+            let colors = ["red", "blue"];
+            let coin = Math.floor(Math.random() * 1.9999);
+            let color = colors[coin];
+            if (estado[presente] === false) {
+              console.log("cambio de color, estados ", estado);
+              elemento.setAttribute("color", color);
+              estado[presente] = true;
+              estado[(parseInt(presente)+3)%6] = false;
+              console.log("cambio de color, estados ", estado);
+            }});
+      </script>
+    </a-scene>
+  </body>
+</html>
