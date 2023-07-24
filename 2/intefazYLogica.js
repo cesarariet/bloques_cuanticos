@@ -36,7 +36,7 @@ function prepararEstado() {
 
   arBloque.a_text.setAttribute(
     "value",
-    "Estado preparado \n Retirar y volver \npara medir."
+    "Estado preparado\nRetirar y volver\npara medir."
   );
   arBloque.a_figura.setAttribute("color", "grey");
 

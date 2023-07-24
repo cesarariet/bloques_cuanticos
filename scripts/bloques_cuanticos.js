@@ -45,28 +45,16 @@ function Observable(autovalores, autovectores) {
     const probabilidades = math.map(estadoEnBaseB, (item) => item * item);
     const acumulacionProbabilidades = math.cumsum(probabilidades);
     const indice = darIndiceAleatorioConPesos(acumulacionProbabilidades._data);
-    console.log("el indice es ", indice);
     const valorMedido = this.autovalores[indice];
     const estadoColapsado = this.autovectores[indice];
-    // // Valor medido al colapsar el estado
-    // const valorMedido = math.pickRandom(this.autovalores, probabilidades);
-    // const estadoColapsado =
-    //   this.autovectores[this.autovalores.indexOf(valorMedido)];
 
     return { valorMedido, estadoColapsado };
   };
 }
 
 function darIndiceAleatorioConPesos(acumulacionProbabilidades) {
-  console.log("Acumulación de proba ", acumulacionProbabilidades);
   const aleatorio = math.random();
   return acumulacionProbabilidades.reduce((indice, valor) => {
-    console.log(
-      "valor: ",
-      valor,
-      "para comparar con el aleatorior: ",
-      aleatorio
-    );
     if (valor > aleatorio) return indice;
     return indice + 1;
   }, 0);
@@ -152,21 +140,9 @@ function ARBloqueCuantico(id, bloqueCuantico, observable) {
     switch (valorMedido) {
       case 1:
         this.a_figura.setAttribute("color", "red");
-        console.log(
-          "AR: color red por medición ",
-          valorMedido,
-          " para el bloque cuántico ",
-          bloqueCuantico.id
-        );
         break;
       case -1:
         this.a_figura.setAttribute("color", "blue");
-        console.log(
-          "AR: color blue por medición ",
-          valorMedido,
-          " para el bloque cuántico ",
-          bloqueCuantico.id
-        );
         break;
     }
   };
