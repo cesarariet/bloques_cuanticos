@@ -1,7 +1,17 @@
 <html>
   <head>
-    <title>Entrelazamiento de bloques cuánticos</title>
+    <title>Bloques cuánticos</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Una implementación de realidad aumentada para simular entidades cuánticas."
+    />
+    <meta
+      name="keywords"
+      content="mecánica cuántica, bloques cuánticos, superposición"
+    />
+    <meta name="author" content="Mario Estanislao Cesar Ariet" />
     <link rel="stylesheet" href="../styles/styles.css" />
     <script src="../AR/aframe.min.js"></script>
     <script src="../AR/mindar-image-aframe.prod.js"></script>
@@ -34,19 +44,14 @@
           color="white"
           value=" "
         ></a-text>
-        <a-box
-          color="hsl(270,100%,50%)"
-          position="0 0 .3"
+        <a-plane
+          color="red"
+          position="0 0 0"
           height=".5"
           width=".5"
-          depth=".5"
           rotation="0 0 0"
-        ></a-box>
-        <a-sphere
-          color="hsl(0,100%,50%)"
-          position="0 0 .3"
-          radius=".25"
-        ></a-sphere>
+        ></a-plane>
+        <a-circle color="blue" position="0 0 0" radius=".25"></a-circle>
       </a-entity>
     </a-scene>
   </body>

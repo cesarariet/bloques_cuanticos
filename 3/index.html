@@ -2,6 +2,16 @@
   <head>
     <title>Entrelazamiento de bloques cuánticos</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Una implementación de realidad aumentada para simular estados entrelazados de entidades cuánticas"
+    />
+    <meta
+      name="keywords"
+      content="mecánica cuántica, bloques cuánticos, entrelazamiento, superposición, experimento de Bell, paradoja EPR"
+    />
+    <meta name="author" content="Mario Estanislao Cesar Ariet" />
     <link rel="stylesheet" href="../styles/styles.css" />
     <script src="../AR/aframe.min.js"></script>
     <script src="../AR/mindar-image-aframe.prod.js"></script>
@@ -12,6 +22,7 @@
       src="../scripts/bloques_cuanticos_como_sistema_cuantico.js"
     ></script>
     <script defer src="intefazYLogica.js"></script>
+    <script defer src="msg.js"></script>
   </head>
   <body>
     <a-scene
@@ -22,9 +33,19 @@
       device-orientation-permission-ui="enabled: false"
     >
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+      <div class="infoPantalla arriba">
+        Medir con varios dipositivos conectar usar el mismo número y precionar
+        conectar.<br />
+        <input
+          type="number"
+          id="elegirExperimento"
+          style="text-align: center; max-width: 120px"
+        />
+        <button onclick="msgCambiarExperimento()">Conetar</button>
+      </div>
       <div id="uiParaEntrelazarBloques" class="infoPantalla noVisible">
-        Para generar un estado entrelazado las caras (colores de las esferas) de
-        estos bloques cuánticos detectados, presione el siguiente botón<br />
+        Para generar un estado entrelazado las caras (colores de los círculos)
+        de estos bloques cuánticos detectados, presione el siguiente botón<br />
         <button type="button" onclick="entrelazarBloquesDetectados()">
           SUPERPONER
         </button>
@@ -40,19 +61,14 @@
           color="white"
           value=" "
         ></a-text>
-        <a-box
-          color="hsl(270,100%,50%)"
-          position="0 0 .3"
+        <a-plane
+          color="blue"
+          position="0 0 0"
           height=".5"
           width=".5"
-          depth=".5"
           rotation="0 0 0"
-        ></a-box>
-        <a-sphere
-          color="hsl(0,100%,50%)"
-          position="0 0 .3"
-          radius=".25"
-        ></a-sphere>
+        ></a-plane>
+        <a-circle color="red" position="0 0 0" radius=".25"></a-circle>
       </a-entity>
     </a-scene>
   </body>

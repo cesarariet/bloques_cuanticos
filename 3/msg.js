@@ -13,14 +13,38 @@ async function conectarYEscuchar(canalNombre) {
     await ably.connection.once("connected");
     await channel.subscribe(canalNombre, (message) => {
       console.log("Mensaje del canal " + canalNombre + ": " + message.data);
+      bloquesCuanticos.estado = JSON.parse(message.data);
     });
   } catch (error) {
     console.log("Error de conexion al canal " + canalNombre);
   }
 }
 
-// para mandar mensajes usar
-// channel.publish("canalNombre", "mensaje al usuario!")
-conectarYEscuchar("33")
-  .then(() => channel.publish("33", "esto es un mensaje"))
-  .catch("Error al enviar mensaje");
+function EnviarMensajeA(numeroExperimento) {
+  return async function enviarMensaje(mensaje) {
+    try {
+      await channel.publish(numeroExperimento, mensaje);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+}
+
+//----------------------------------------------------------------
+// Elegir numero de experimento
+//----------------------------------------------------------------
+
+const inputElegirExperimento = document.getElementById("elegirExperimento");
+var numeroExperimento = math.randomInt(1000, 9999);
+
+inputElegirExperimento.value = numeroExperimento;
+const enviarMensaje = EnviarMensajeA(numeroExperimento.toString());
+
+conectarYEscuchar(numeroExperimento.toString()).then(() =>
+  enviarMensaje(JSON.stringify(bloquesCuanticos.estado))
+);
+
+function msgCambiarExperimento() {
+  const inputElegirExperimento =
+    document.getElementById("elegirExperimento").value;
+}
