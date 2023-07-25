@@ -170,7 +170,7 @@ const contraCaraParaBloque3 = new Observable(
 function entrelazarEnEstadoDeBell(idCartaLibre, estadoAsimetrizar) {
   //Solo sirve para tres bloques cuánticos
   // estos simetrico y antisimetro para igual colapsar en los mismos estados en ambos bloques
-  const simetrizardorParaBloque0Libre = [
+  const simetrizardorParaBloque2Libre = [
     [1, 0, 1, 0, 1, 0, 1, 0],
     [0, 1, 0, 1, 0, 1, 0, 1],
     [0, 0, 0, 0, 0, 0, 0, 0],
@@ -192,7 +192,7 @@ function entrelazarEnEstadoDeBell(idCartaLibre, estadoAsimetrizar) {
     [0, 0, 1, 1, 0, 0, 1, 1],
   ];
 
-  const simetrizardorParaBloque2Libre = [
+  const simetrizardorParaBloque0Libre = [
     [1, 1, 1, 1, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],

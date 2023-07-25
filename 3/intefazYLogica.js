@@ -37,7 +37,8 @@ escena.addEventListener("targetFound", (event) => {
   idTarget =
     event.target.components["mindar-image-target"].attrValue.targetIndex;
 
-  estadoGeneral.cartaDetectada(arBloques[idTarget].idCarta);
+  // Solo reconoce cuando los bloques muestran la cara que representa una esfera (no las contracaras que representa un cubo)
+  if (idTarget < 3) estadoGeneral.cartaDetectada(arBloques[idTarget].idCarta);
 
   if (estadoGeneral.cantidadCartasVisibles === 2)
     uiParaEntrelazarBloques.classList.remove("noVisible");
@@ -52,7 +53,7 @@ escena.addEventListener("targetLost", (event) => {
   idTarget =
     event.target.components["mindar-image-target"].attrValue.targetIndex;
 
-  estadoGeneral.cartaPerdida(arBloques[idTarget].idCarta);
+  if (idTarget < 3) estadoGeneral.cartaPerdida(arBloques[idTarget].idCarta);
 });
 
 //----------------------------------------------------------------
