@@ -27,7 +27,7 @@
 button,
 select {
   color: #111;
-  background-color: #eee;
+  background: #eee;
   border: 4px solid #111;
   height: 40px;
   padding: 0 10px;
@@ -35,6 +35,11 @@ select {
   border-radius: 20px;
   font-weight: 800;
   transition: 1s;
+}
+
+input {
+  color: #111;
+  background: #eee;
 }
 
 button:active {
