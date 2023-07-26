@@ -35,16 +35,13 @@ function EnviarMensajeA(numeroExperimento) {
 //----------------------------------------------------------------
 
 const inputElegirExperimento = document.getElementById("elegirExperimento");
-var numeroExperimento = math.randomInt(1000, 9999);
-
-inputElegirExperimento.value = numeroExperimento;
-const enviarMensaje = EnviarMensajeA(numeroExperimento.toString());
-
-conectarYEscuchar(numeroExperimento.toString()).then(() =>
-  enviarMensaje(JSON.stringify(bloquesCuanticos.estado))
-);
+inputElegirExperimento.value = math.randomInt(1000, 9999);
 
 function msgCambiarExperimento() {
-  const inputElegirExperimento =
-    document.getElementById("elegirExperimento").value;
+  const numeroExperimento = inputElegirExperimento.value;
+  const enviarMensaje = EnviarMensajeA(numeroExperimento.toString());
+  console.log("conectando");
+  conectarYEscuchar(numeroExperimento.toString()).then(() =>
+    enviarMensaje(JSON.stringify(bloquesCuanticos.estado))
+  );
 }

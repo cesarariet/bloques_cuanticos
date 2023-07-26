@@ -11,13 +11,13 @@ function Observable(autovalores, autovectores) {
   this.autovalores = autovalores;
   this.autovectores = autovectores;
   this.dimension = autovalores.length;
-  this.matrizCambioDeBaseBE = math.transpose(math.matrix(autovectores));
+  this.matrizCambioDeBaseBE = math.transpose(autovectores);
   this.matrizCambioDeBaseEB = math.inv(this.matrizCambioDeBaseBE);
   this.operadorEnBaseB = math.diag(autovalores);
   this.operadorEnBaseE = math.multiply(
-    this.matrizCambioDeBaseEB,
+    this.matrizCambioDeBaseBE,
     this.operadorEnBaseB,
-    this.matrizCambioDeBaseBE
+    this.matrizCambioDeBaseEB
   );
 
   // Pasar el estado en Base E a base B
@@ -46,20 +46,25 @@ function Observable(autovalores, autovectores) {
     // calculo de probabilidades de que el sistema colapse en los autoestados del observable
     const probabilidades = math.map(estadoEnBaseB, (item) => item * item);
     const acumulacionProbabilidades = math.cumsum(probabilidades);
-    const indice = darIndiceAleatorioConPesos(acumulacionProbabilidades._data);
+    const indice = darIndiceAleatorioConPesos(acumulacionProbabilidades);
     const valorMedido = this.autovalores[indice];
     //Proyección del estado en el subespacio de la medida de colapso.
     // Solo sirve para dos estados y que la base este separada en sus dos autoespacios
+    console.log(
+      "con un indice ",
+      indice,
+      " del estado a colapsar en",
+      estadoEnBaseB
+    );
     const ceros = math.zeros(this.dimension / 2)._data;
     if (this.dimension / 2 > indice) {
-      estadoEnBaseB._data.splice(this.dimension / 2, this.dimension, ...ceros);
+      estadoEnBaseB.splice(this.dimension / 2, this.dimension, ...ceros);
     } else {
-      estadoEnBaseB._data.splice(0, this.dimension / 2, ...ceros);
+      estadoEnBaseB.splice(0, this.dimension / 2, ...ceros);
     }
 
-    estadoEnBaseB = math.multiply(estadoEnBaseB, 1 / math.norm(estadoEnBaseB));
-    const estadoColapsadoEnBaseE =
-      this.cambioCoordenadasBE(estadoEnBaseB)._data;
+    estadoEnBaseB = math.divide(estadoEnBaseB, math.norm(estadoEnBaseB));
+    const estadoColapsadoEnBaseE = this.cambioCoordenadasBE(estadoEnBaseB);
 
     return { valorMedido, estadoColapsado: estadoColapsadoEnBaseE };
   };
@@ -119,47 +124,47 @@ const caraParaBloque3 = new Observable(
   ]
 );
 
-const aa = math.sqrt(2) / 2;
+const a = math.sqrt(8) / 8;
 
 const contraCaraParaBloque1 = new Observable(
   [1, 1, 1, 1, -1, -1, -1, -1],
   [
-    [aa, 0, 0, 0, aa, 0, 0, 0],
-    [0, aa, 0, 0, 0, aa, 0, 0],
-    [0, 0, aa, 0, 0, 0, aa, 0],
-    [0, 0, 0, aa, 0, 0, 0, aa],
-    [-aa, 0, 0, 0, aa, 0, 0, 0],
-    [0, -aa, 0, 0, 0, aa, 0, 0],
-    [0, 0, -aa, 0, 0, 0, aa, 0],
-    [0, 0, 0, -aa, 0, 0, 0, aa],
+    [a, a, a, a, a, a, a, a],
+    [-a, a, -a, a, -a, a, -a, a],
+    [-a, -a, a, a, -a, -a, a, a],
+    [a, -a, -a, a, a, -a, a, -a],
+    [-a, -a, -a, -a, a, a, a, a],
+    [a, -a, a, -a, -a, a, -a, a],
+    [a, a, -a, -a, -a, -a, a, a],
+    [-a, a, a, -a, a, -a, -a, a],
   ]
 );
 
 const contraCaraParaBloque2 = new Observable(
   [1, 1, 1, 1, -1, -1, -1, -1],
   [
-    [aa, 0, aa, 0, 0, 0, 0, 0],
-    [0, aa, 0, aa, 0, 0, 0, 0],
-    [0, 0, 0, 0, aa, 0, aa, 0],
-    [0, 0, 0, 0, 0, aa, 0, aa],
-    [-aa, 0, aa, 0, 0, 0, 0, 0],
-    [0, -aa, 0, aa, 0, 0, 0, 0],
-    [0, 0, 0, 0, -aa, 0, aa, 0],
-    [0, 0, 0, 0, 0, -aa, 0, aa],
+    [a, a, a, a, a, a, a, a],
+    [-a, a, -a, a, -a, a, -a, a],
+    [-a, -a, -a, -a, a, a, a, a],
+    [a, -a, a, -a, -a, a, -a, a],
+    [-a, -a, a, a, -a, -a, a, a],
+    [a, -a, -a, a, a, -a, a, -a],
+    [a, a, -a, -a, -a, -a, a, a],
+    [-a, a, a, -a, a, -a, -a, a],
   ]
 );
 
 const contraCaraParaBloque3 = new Observable(
   [1, 1, 1, 1, -1, -1, -1, -1],
   [
-    [aa, aa, 0, 0, 0, 0, 0, 0],
-    [0, 0, aa, aa, 0, 0, 0, 0],
-    [0, 0, 0, 0, aa, aa, 0, 0],
-    [0, 0, 0, 0, 0, 0, aa, aa],
-    [-aa, aa, 0, 0, 0, 0, 0, 0],
-    [0, 0, -aa, aa, 0, 0, 0, 0],
-    [0, 0, 0, 0, -aa, aa, 0, 0],
-    [0, 0, 0, 0, 0, 0, -aa, aa],
+    [a, a, a, a, a, a, a, a],
+    [-a, -a, a, a, -a, -a, a, a],
+    [-a, -a, -a, -a, a, a, a, a],
+    [a, a, -a, -a, -a, -a, a, a],
+    [-a, a, -a, a, -a, a, -a, a],
+    [a, -a, -a, a, a, -a, a, -a],
+    [a, -a, a, -a, -a, a, -a, a],
+    [-a, a, a, -a, a, -a, -a, a],
   ]
 );
 
@@ -167,32 +172,11 @@ const contraCaraParaBloque3 = new Observable(
 // Simetrizadores para producir estados de Bell
 //----------------------------------------------------------------
 
-function entrelazarEnEstadoDeBell(idCartaLibre, estadoAsimetrizar) {
+function entrelazarEnEstadoDeBell(arBloque) {
   //Solo sirve para tres bloques cuánticos
   // estos simetrico y antisimetro para igual colapsar en los mismos estados en ambos bloques
-  const simetrizardorParaBloque2Libre = [
-    [1, 0, 1, 0, 1, 0, 1, 0],
-    [0, 1, 0, 1, 0, 1, 0, 1],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [1, 0, 1, 0, 1, 0, 1, 0],
-    [0, 1, 0, 1, 0, 1, 0, 1],
-  ];
 
-  const simetrizardorParaBloque1Libre = [
-    [1, 1, 0, 0, 1, 1, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 1, 1, 0, 0, 1, 1],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [1, 1, 0, 0, 1, 1, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 1, 1, 0, 0, 1, 1],
-  ];
-
-  const simetrizardorParaBloque0Libre = [
+  const simetrizardorEnBaseB = [
     [1, 1, 1, 1, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
@@ -203,39 +187,25 @@ function entrelazarEnEstadoDeBell(idCartaLibre, estadoAsimetrizar) {
     [0, 0, 0, 0, 1, 1, 1, 1],
   ];
 
-  function simetrizar(operadorSimetrizador, estadoAsimetrizar) {
+  function simetrizar(arBloque, simetrizardorEnBaseB) {
+    const estadoEnBaseE = arBloque.bloqueCuantico.estado;
+    const observable = arBloque.observable;
     var estadoSimetrizado = math.multiply(
-      operadorSimetrizador,
-      estadoAsimetrizar
+      observable.matrizCambioDeBaseBE,
+      simetrizardorEnBaseB,
+      observable.matrizCambioDeBaseEB,
+      estadoEnBaseE
     );
     console.log("el estado salido del simetrizador es ", estadoSimetrizado);
     return estadoSimetrizado;
   }
+  var estadoSimetrizado = simetrizar(arBloque, simetrizardorEnBaseB);
 
-  var estadoSimetrizado = bloquesCuanticos.estado;
-  console.log("la carta libre es ", idCartaLibre);
-  if (idCartaLibre === 0) {
-    estadoSimetrizado = simetrizar(
-      simetrizardorParaBloque0Libre,
-      estadoAsimetrizar
-    );
-  } else if (idCartaLibre === 1) {
-    estadoSimetrizado = simetrizar(
-      simetrizardorParaBloque1Libre,
-      estadoAsimetrizar
-    );
-  } else if (idCartaLibre === 2) {
-    estadoSimetrizado = simetrizar(
-      simetrizardorParaBloque2Libre,
-      estadoAsimetrizar
-    );
-  }
   //normalizar el estado
   estadoSimetrizado = math.divide(
     estadoSimetrizado,
     math.norm(estadoSimetrizado)
   );
-  console.log(estadoSimetrizado);
   return estadoSimetrizado;
 }
 
@@ -270,6 +240,7 @@ function BloqueCuantico(id, estadoInidical) {
 function ARBloqueCuantico(id, idCarta, bloqueCuantico, observable) {
   const a_escena = document.getElementById("escena");
   const target0 = document.getElementById("targetModelo");
+  this.id = id;
   this.idCarta = idCarta;
   this.bloqueCuantico = bloqueCuantico;
   this.observable = observable;
@@ -340,6 +311,13 @@ a_escena.addEventListener("targetFound", (event) => {
 
   // medición y colapso del estado cuántico
   arBloques[idTarget].detectado();
+
+  console.log(
+    "estado en base ",
+    idTarget,
+    " es: ",
+    arBloques[idTarget].observable.cambioCoordenadasEB(bloquesCuanticos.estado)
+  );
 });
 
 a_escena.addEventListener("targetLost", (event) => {

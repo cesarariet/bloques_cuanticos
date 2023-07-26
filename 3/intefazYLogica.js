@@ -5,43 +5,35 @@
 // con un estado aleatorio
 // ----------------------------------------------------------------
 
-function EstadoGeneral(arBloques) {
-  this.cartaVisible = [false, false, false];
-  this.cantidadCartasVisibles = 0;
-  this.cartaDetectada = (idCarta) => {
-    this.cartaVisible[idCarta] = true;
-    this.cantidadCartasVisibles++;
-    return this.cartaVisible;
-  };
-
-  this.cartaPerdida = (idCarta) => {
-    this.cartaVisible[idCarta] = false;
-    this.cantidadCartasVisibles--;
-    return this.cartaVisible;
-  };
+function contarBloquesVisibles(arBloques) {
+  return arBloques.reduce((cantidad, arBloque) => {
+    return arBloque.enEscena ? cantidad + 1 : cantidad;
+  }, 0);
 }
 
-const estadoGeneral = new EstadoGeneral(arBloques);
+function decidirSiAmbasCartasEstanDandoLaCara(arBloques) {
+  return arBloques
+    .filter((arBloque) => arBloque.enEscena === true)
+    .every((arBloque) => arBloque.id < 3);
+}
 
-const escena = document.getElementById("escena");
-
-const uiParaEntrelazarBloques = document.getElementById(
-  "uiParaEntrelazarBloques"
-);
-
+function decidirSiAmbasCartasEstanDandoLaContraCara(arBloques) {
+  return arBloques
+    .filter((arBloque) => arBloque.enEscena === true)
+    .every((arBloque) => arBloque.id >= 3);
+}
 //----------------------------------------------------------------
 // Cuando se detectan los bloques
 //----------------------------------------------------------------
 
 escena.addEventListener("targetFound", (event) => {
-  idTarget =
-    event.target.components["mindar-image-target"].attrValue.targetIndex;
-
-  // Solo reconoce cuando los bloques muestran la cara que representa una esfera (no las contracaras que representa un cubo)
-  if (idTarget < 3) estadoGeneral.cartaDetectada(arBloques[idTarget].idCarta);
-
-  if (estadoGeneral.cantidadCartasVisibles === 2)
-    uiParaEntrelazarBloques.classList.remove("noVisible");
+  if (contarBloquesVisibles(arBloques) === 2) {
+    if (
+      decidirSiAmbasCartasEstanDandoLaCara(arBloques) ||
+      decidirSiAmbasCartasEstanDandoLaContraCara(arBloques)
+    )
+      uiParaEntrelazarBloques.classList.remove("noVisible");
+  }
 });
 
 //----------------------------------------------------------------
@@ -49,30 +41,32 @@ escena.addEventListener("targetFound", (event) => {
 //----------------------------------------------------------------
 escena.addEventListener("targetLost", (event) => {
   uiParaEntrelazarBloques.classList.add("noVisible");
-
-  idTarget =
-    event.target.components["mindar-image-target"].attrValue.targetIndex;
-
-  if (idTarget < 3) estadoGeneral.cartaPerdida(arBloques[idTarget].idCarta);
 });
 
 //----------------------------------------------------------------
 // Cuando se presiona el boton entrelazarBloquesDetectados
 //----------------------------------------------------------------
 function entrelazarBloquesDetectados() {
-  //entrelazar estados
-  const idCartaLibre = estadoGeneral.cartaVisible.indexOf(false);
-  bloquesCuanticos.establecerEstado(
-    entrelazarEnEstadoDeBell(idCartaLibre, bloquesCuanticos.estado)
-  );
+  const idArBloquesParaCaraNoVisibles = arBloques
+    .filter((arBloques) => !arBloques.enEscena && arBloques.id < 3)
+    .map((arBloques) => arBloques.id);
+  const idArBloquesParaContraCaraNoVisibles = arBloques
+    .filter((arBloques) => !arBloques.enEscena && arBloques.id >= 3)
+    .map((arBloques) => arBloques.id);
 
-  // cambiar interfaz de usuario despues del producir el entrelazamiento
-  uiParaEntrelazarBloques.classList.add("noVisible");
-  arBloques.forEach((arBloque) => {
-    arBloque.a_figura.setAttribute("color", "grey");
-    arBloque.a_text.setAttribute(
-      "value",
-      "bloques entrelazados\nRetirar y volver\npara medir."
+  // aquel array que tenga solo un elemento corresponde con el observable de los bloques visibles
+  if (idArBloquesParaCaraNoVisibles.length === 1)
+    bloquesCuanticos.establecerEstado(
+      entrelazarEnEstadoDeBell(arBloques[idArBloquesParaCaraNoVisibles[0]])
     );
-  });
+  if (idArBloquesParaContraCaraNoVisibles.length === 1) {
+    bloquesCuanticos.establecerEstado(
+      entrelazarEnEstadoDeBell(
+        arBloques[idArBloquesParaContraCaraNoVisibles[0]]
+      )
+    );
+  }
+  arBloques.forEach((arBloque) =>
+    arBloque.a_figura.setAttribute("color", "grey")
+  );
 }
