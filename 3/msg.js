@@ -14,7 +14,6 @@ function Mensajeria() {
     try {
       await channel.subscribe(canalNombre, (message) => {
         data = JSON.parse(message.data);
-        console.log(data);
         bloquesCuanticos.estado = data.estado;
         arBloques.forEach((arBloque, i) =>
           arBloque.a_figura.setAttribute("color", data.colores[i])
