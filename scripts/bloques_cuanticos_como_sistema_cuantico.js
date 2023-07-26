@@ -247,21 +247,16 @@ function ARBloqueCuantico(id, idCarta, bloqueCuantico, observable) {
   this.ARbloque = target0.cloneNode(true);
   this.ARbloque.setAttribute("id", `target${id}`);
   this.ARbloque.setAttribute("mindar-image-target", `targetIndex: ${id}`);
-  this.a_text = this.ARbloque.children[0];
   this.enEscena = false;
 
   id < 3
-    ? this.ARbloque.children[1].remove()
-    : this.ARbloque.children[2].remove();
-  this.a_figura = this.ARbloque.children[1];
+    ? this.ARbloque.children[0].remove()
+    : this.ARbloque.children[1].remove();
+  this.a_figura = this.ARbloque.children[0];
 
   a_escena.appendChild(this.ARbloque);
 
   this.detectado = () => {
-    bloqueCuantico.fueMedido
-      ? this.a_text.setAttribute("value", " ")
-      : this.a_text.setAttribute("value", "Medido por \nprimera vez.");
-
     valorMedido = bloqueCuantico.medirYColapsar(observable);
 
     switch (valorMedido) {
@@ -277,13 +272,6 @@ function ARBloqueCuantico(id, idCarta, bloqueCuantico, observable) {
 //----------------------------------------------------------------
 // Creación de estado inicial, en la base canónica pero aleatoreamente!
 //----------------------------------------------------------------
-
-// const bloquesCuanticos = [
-//   new BloqueCuantico(0),
-//   new BloqueCuantico(1),
-//   new BloqueCuantico(2),
-// ];
-
 const bloquesCuanticos = new BloqueCuantico(0);
 
 const arBloques = [

@@ -34,4 +34,10 @@ select {
   margin: 10px 0px;
   border-radius: 20px;
   font-weight: 800;
+  transition: 1s;
+}
+
+button:active {
+  background-color: red;
+  transition: 0s;
 }
