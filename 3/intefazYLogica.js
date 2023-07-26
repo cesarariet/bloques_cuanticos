@@ -69,5 +69,10 @@ function entrelazarBloquesDetectados() {
   arBloques.forEach((arBloque) =>
     arBloque.a_figura.setAttribute("color", "grey")
   );
-  mensajeria.enviarEstado(bloquesCuanticos.estado);
+  mensajeria.enviarEstado({
+    estado: bloquesCuanticos.estado,
+    colores: arBloques.map((arBloque) =>
+      arBloque.a_figura.getAttribute("color")
+    ),
+  });
 }

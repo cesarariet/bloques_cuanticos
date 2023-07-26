@@ -13,8 +13,12 @@ function Mensajeria() {
     this.canalNombre = canalNombre.toString();
     try {
       await channel.subscribe(canalNombre, (message) => {
-        console.log("Mensaje del canal " + canalNombre + ": " + message.data);
-        bloquesCuanticos.estado = JSON.parse(message.data);
+        data = JSON.parse(message.data);
+        console.log(data);
+        bloquesCuanticos.estado = data.estado;
+        arBloques.forEach((arBloque, i) =>
+          arBloque.a_figura.setAttribute("color", data.colores[i])
+        );
       });
     } catch (error) {
       console.log("Error de conexion al canal " + canalNombre);
@@ -41,10 +45,20 @@ const mensajeria = new Mensajeria();
 function msgCambiarExperimento() {
   const numeroExperimento = inputElegirExperimento.value;
   mensajeria.conectarYEscuchar(numeroExperimento);
-  mensajeria.enviarEstado(bloquesCuanticos.estado);
+  mensajeria.enviarEstado({
+    estado: bloquesCuanticos.estado,
+    colores: arBloques.map((arBloque) =>
+      arBloque.a_figura.getAttribute("color")
+    ),
+  });
 }
 
 a_escena.addEventListener("targetFound", () => {
   if (mensajeria.canalNombre !== null)
-    mensajeria.enviarEstado(bloquesCuanticos.estado);
+    mensajeria.enviarEstado({
+      estado: bloquesCuanticos.estado,
+      colores: arBloques.map((arBloque) =>
+        arBloque.a_figura.getAttribute("color")
+      ),
+    });
 });
