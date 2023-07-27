@@ -13,8 +13,8 @@
     />
     <meta name="author" content="Mario Estanislao Cesar Ariet" />
     <link rel="stylesheet" href="../styles/styles.css" />
-    <script src="../AR/aframe.min.js"></script>
-    <script src="../AR/mindar-image-aframe.prod.js"></script>
+    <script src="../scripts/aframe.min.js"></script>
+    <script src="../scripts/mindar-image-aframe.prod.js"></script>
     <script src="../scripts/math.js"></script>
     <script src="https://cdn.ably.com/lib/ably.min-1.js"></script>
     <script
@@ -27,7 +27,7 @@
   <body>
     <a-scene
       id="escena"
-      mindar-image="imageTargetSrc: ../AR/mejores.mind; ui-scanning: no; maxTrack: 2;"
+      mindar-image="imageTargetSrc: ../marcadores/targets.mind; ui-scanning: no;"
       renderer="colorManagement: true, physicallyCorrectLights"
       vr-mode-ui="enabled: false"
       device-orientation-permission-ui="enabled: false"
