@@ -10,8 +10,9 @@ const channel = ably.channels.get("entrelazados");
 function Mensajeria() {
   this.canalNombre = null;
   this.conectarYEscuchar = async function (canalNombre) {
-    this.canalNombre = canalNombre.toString();
     try {
+      await channel.unsubscribe(this.canalNombre);
+      this.canalNombre = canalNombre.toString();
       await channel.subscribe(canalNombre, (message) => {
         data = JSON.parse(message.data);
         console.log(
@@ -50,15 +51,19 @@ const inputElegirExperimento = document.getElementById("elegirExperimento");
 inputElegirExperimento.value = math.randomInt(1000, 9999);
 const mensajeria = new Mensajeria();
 
-function msgCambiarExperimento() {
-  const numeroExperimento = inputElegirExperimento.value;
-  mensajeria.conectarYEscuchar(numeroExperimento);
-  mensajeria.enviarEstado({
-    estado: bloquesCuanticos.estado,
-    colores: arBloques.map((arBloque) =>
-      arBloque.a_figura.getAttribute("color")
-    ),
-  });
+async function msgCambiarExperimento() {
+  try {
+    const numeroExperimento = inputElegirExperimento.value;
+    await mensajeria.conectarYEscuchar(numeroExperimento);
+    await mensajeria.enviarEstado({
+      estado: bloquesCuanticos.estado,
+      colores: arBloques.map((arBloque) =>
+        arBloque.a_figura.getAttribute("color")
+      ),
+    });
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 a_escena.addEventListener("targetFound", () => {
