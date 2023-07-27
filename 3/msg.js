@@ -23,7 +23,7 @@ function Mensajeria() {
           data.colores
         );
         if (data.estado.length === 8) bloquesCuanticos.estado = data.estado;
-        if (data.colores.length === 8)
+        if (data.colores.length === 6)
           arBloques.forEach((arBloque, i) =>
             arBloque.a_figura.setAttribute("color", data.colores[i])
           );
@@ -65,11 +65,12 @@ a_escena.addEventListener("targetFound", () => {
   if (mensajeria.canalNombre !== null)
     // el setTime out es para darle tiempo a arBloque.medirYcopalsar para enviar luego de tener el estado medido enviar la información
     setTimeout(() => {
+      console.log("enviando estado!");
       mensajeria.enviarEstado({
         estado: bloquesCuanticos.estado,
         colores: arBloques.map((arBloque) =>
           arBloque.a_figura.getAttribute("color")
         ),
       });
-    }, 200);
+    }, 20);
 });
