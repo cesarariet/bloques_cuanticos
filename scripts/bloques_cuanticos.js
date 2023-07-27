@@ -133,7 +133,7 @@ function ARBloqueCuantico(id, bloqueCuantico, observable) {
   this.detectado = () => {
     bloqueCuantico.fueMedido
       ? this.a_text.setAttribute("value", " ")
-      : this.a_text.setAttribute("value", " ");
+      : this.a_text.setAttribute("value", "Primera medida\n del bloque.");
 
     valorMedido = bloqueCuantico.medirYColapsar(observable);
 
