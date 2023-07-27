@@ -133,7 +133,7 @@ function ARBloqueCuantico(id, bloqueCuantico, observable) {
   this.detectado = () => {
     bloqueCuantico.fueMedido
       ? this.a_text.setAttribute("value", " ")
-      : this.a_text.setAttribute("value", "Medido por \nprimera vez.");
+      : this.a_text.setAttribute("value", " ");
 
     valorMedido = bloqueCuantico.medirYColapsar(observable);
 
@@ -159,10 +159,10 @@ const bloquesCuanticos = [
 
 const arBloques = [
   new ARBloqueCuantico(0, bloquesCuanticos[0], cara),
-  new ARBloqueCuantico(1, bloquesCuanticos[0], contraCara),
-  new ARBloqueCuantico(2, bloquesCuanticos[1], cara),
-  new ARBloqueCuantico(3, bloquesCuanticos[1], contraCara),
-  new ARBloqueCuantico(4, bloquesCuanticos[2], cara),
+  new ARBloqueCuantico(1, bloquesCuanticos[1], cara),
+  new ARBloqueCuantico(2, bloquesCuanticos[2], cara),
+  new ARBloqueCuantico(3, bloquesCuanticos[0], contraCara),
+  new ARBloqueCuantico(4, bloquesCuanticos[1], contraCara),
   new ARBloqueCuantico(5, bloquesCuanticos[2], contraCara),
 ];
 

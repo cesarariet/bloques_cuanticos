@@ -249,7 +249,7 @@ function ARBloqueCuantico(id, idCarta, bloqueCuantico, observable) {
   this.ARbloque.setAttribute("mindar-image-target", `targetIndex: ${id}`);
   this.enEscena = false;
 
-  id % 2
+  id < 3
     ? this.ARbloque.children[0].remove()
     : this.ARbloque.children[1].remove();
   this.a_figura = this.ARbloque.children[0];
@@ -276,10 +276,10 @@ const bloquesCuanticos = new BloqueCuantico(0);
 
 const arBloques = [
   new ARBloqueCuantico(0, 0, bloquesCuanticos, caraParaBloque1),
-  new ARBloqueCuantico(1, 0, bloquesCuanticos, contraCaraParaBloque1),
-  new ARBloqueCuantico(2, 1, bloquesCuanticos, caraParaBloque2),
-  new ARBloqueCuantico(3, 1, bloquesCuanticos, contraCaraParaBloque2),
-  new ARBloqueCuantico(4, 2, bloquesCuanticos, caraParaBloque3),
+  new ARBloqueCuantico(1, 1, bloquesCuanticos, caraParaBloque2),
+  new ARBloqueCuantico(2, 2, bloquesCuanticos, caraParaBloque3),
+  new ARBloqueCuantico(3, 0, bloquesCuanticos, contraCaraParaBloque1),
+  new ARBloqueCuantico(4, 1, bloquesCuanticos, contraCaraParaBloque2),
   new ARBloqueCuantico(5, 2, bloquesCuanticos, contraCaraParaBloque3),
 ];
 
