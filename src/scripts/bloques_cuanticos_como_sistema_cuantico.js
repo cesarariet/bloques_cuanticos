@@ -62,7 +62,7 @@ const contraCaraParaBloque1 = new Observable(
     [a, a, a, a, a, a, a, a],
     [-a, a, -a, a, -a, a, -a, a],
     [-a, -a, a, a, -a, -a, a, a],
-    [a, -a, -a, a, a, -a, a, -a],
+    [a, -a, -a, a, a, -a, -a, a],
     [-a, -a, -a, -a, a, a, a, a],
     [a, -a, a, -a, -a, a, -a, a],
     [a, a, -a, -a, -a, -a, a, a],
@@ -78,7 +78,7 @@ const contraCaraParaBloque2 = new Observable(
     [-a, -a, -a, -a, a, a, a, a],
     [a, -a, a, -a, -a, a, -a, a],
     [-a, -a, a, a, -a, -a, a, a],
-    [a, -a, -a, a, a, -a, a, -a],
+    [a, -a, -a, a, a, -a, -a, a],
     [a, a, -a, -a, -a, -a, a, a],
     [-a, a, a, -a, a, -a, -a, a],
   ]
@@ -92,7 +92,7 @@ const contraCaraParaBloque3 = new Observable(
     [-a, -a, -a, -a, a, a, a, a],
     [a, a, -a, -a, -a, -a, a, a],
     [-a, a, -a, a, -a, a, -a, a],
-    [a, -a, -a, a, a, -a, a, -a],
+    [a, -a, -a, a, a, -a, -a, a],
     [a, -a, a, -a, -a, a, -a, a],
     [-a, a, a, -a, a, -a, -a, a],
   ]
@@ -107,11 +107,11 @@ export function crearArBloques() {
   // esto es para poder crear los bloques luego de que se halla renderizado la página... sino hay algunos métodos que no puede operar sobre la misma
   const arBloques = [
     new ARBloqueCuantico(0, bloquesCuanticos, caraParaBloque1),
-    new ARBloqueCuantico(1, bloquesCuanticos, caraParaBloque2),
-    new ARBloqueCuantico(2, bloquesCuanticos, caraParaBloque3),
+    new ARBloqueCuantico(1, bloquesCuanticos, caraParaBloque3),
+    new ARBloqueCuantico(2, bloquesCuanticos, caraParaBloque2),
     new ARBloqueCuantico(3, bloquesCuanticos, contraCaraParaBloque1),
-    new ARBloqueCuantico(4, bloquesCuanticos, contraCaraParaBloque2),
-    new ARBloqueCuantico(5, bloquesCuanticos, contraCaraParaBloque3),
+    new ARBloqueCuantico(4, bloquesCuanticos, contraCaraParaBloque3),
+    new ARBloqueCuantico(5, bloquesCuanticos, contraCaraParaBloque2),
   ];
 
   //----------------------------------------------------------------
@@ -137,7 +137,6 @@ export function crearArBloques() {
     const idTarget =
       event.target.components["mindar-image-target"].attrValue.targetIndex
     arBloques[idTarget].enEscena = false;
-    console.log("Se perdió el target ", idTarget);
   });
 
   return arBloques;

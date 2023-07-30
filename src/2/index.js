@@ -4,9 +4,11 @@
 // El botón reiniciar hace que todos los bloques cuánticos reinicien
 // con un estado aleatorio
 // ----------------------------------------------------------------
-import { sqrt } from "mathjs"
-import '../scripts/definiciónDeBloques'
-import { crearArBloques } from '../scripts/definiciónDeBloques';
+//import '../scripts/definiciónDeBloques'
+//import { crearArBloques } from '../scripts/definiciónDeBloques';
+import '../scripts/bloques_cuanticos_como_sistema_cuantico'
+import { bloquesCuanticos, crearArBloques } from "../scripts/bloques_cuanticos_como_sistema_cuantico";
+import { armarEstadoParaUnBloque } from "../scripts/armarEstadoParaUnBloque";
 
 const escena = document.getElementById("escena");
 
@@ -23,21 +25,12 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   function prepararEstado() {
-    const opcionElegida =
-      parseInt(document.getElementById("estadoElegido").value) / 100;
-    const estadoEnBaseB = [
-      sqrt(opcionElegida),
-      sqrt(1 - opcionElegida),
-    ];
+    const opcionElegidaEnPorcentaje =
+      parseInt(document.getElementById("estadoElegido").value);
 
     const arBloque = arBloques.filter((arBloque) => arBloque.enEscena)[0];
 
-    const bloqueCuantico = arBloque.bloqueCuantico;
-    const observable = arBloque.observable;
-
-    bloqueCuantico.establecerEstado(
-      observable.cambioCoordenadasBE(estadoEnBaseB)
-    );
+    bloquesCuanticos.establecerEstado(armarEstadoParaUnBloque(opcionElegidaEnPorcentaje, arBloque))
 
     arBloque.a_text.setAttribute(
       "value",

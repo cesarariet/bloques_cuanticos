@@ -13,12 +13,12 @@ export default function BloqueCuantico(id, estadoInidical) {
   };
   this.establecerEstado(estadoInidical);
 
-  this.medirYColapsar = (observable) => {
+  this.medirYColapsar = (arBloque) => {
     // Este método produce el colapso del estado cuántico en algún autoestado del observable, cambia el estado del bloque y devuelve un objeto con la información de la medición
-    const medirYColapsar = observable.medirYColapsar(this.estado);
+    const medirYColapsar = arBloque.observable.medirYColapsar(this.estado);
     this.estado = medirYColapsar.estadoColapsado;
-    this.fueMedido = true;
-    this.informacion = `Estado colapsado en [${this.estado}]`;
+    arBloque.fueMedido = true;
+    this.informacion = `Bloque colapsado (en base E) en [${this.estado}]`;
     console.log(this.informacion);
     return medirYColapsar.valorMedido;
   };

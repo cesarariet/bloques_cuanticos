@@ -42,7 +42,7 @@ export default function Observable(autovalores, autovectores) {
   };
 
   this.cambioCoordenadasBE = (estadoEnBaseB) => {
-    // estado debe ser un array con el estado en base canónica.
+    // estado debe ser un array con el estado en base B.
     const estadoEnBaseE = multiply(
       this.matrizCambioDeBaseBE,
       estadoEnBaseB
@@ -61,21 +61,24 @@ export default function Observable(autovalores, autovectores) {
     const valorMedido = this.autovalores[indice];
     //Proyección del estado en el subespacio de la medida de colapso.
     // Solo sirve para dos estados y que la base este separada en sus dos autoespacios
+    const ceros = zeros(this.dimension / 2)._data;
+    if (indice < (this.dimension / 2)) {
+      estadoEnBaseB.splice(this.dimension / 2, this.dimension, ...ceros);
+    } else if (indice < this.dimension) {
+      estadoEnBaseB.splice(0, this.dimension / 2, ...ceros);
+    } else {
+      console.error("La elección de indice de colapso esta fuera de las dimensiones permitidas")
+    }
+    // normalización después de la proyección
+    const estadoEnBaseBNormalizado = divide(estadoEnBaseB, norm(estadoEnBaseB));
+
     console.log(
       "con un indice ",
       indice,
-      " del estado a colapsar en",
-      estadoEnBaseB
-    );
-    const ceros = zeros(this.dimension / 2)._data;
-    if (this.dimension / 2 > indice) {
-      estadoEnBaseB.splice(this.dimension / 2, this.dimension, ...ceros);
-    } else {
-      estadoEnBaseB.splice(0, this.dimension / 2, ...ceros);
-    }
-
-    estadoEnBaseB = divide(estadoEnBaseB, norm(estadoEnBaseB));
-    const estadoColapsadoEnBaseE = this.cambioCoordenadasBE(estadoEnBaseB);
+      " del estado a colapsar en base B es",
+      estadoEnBaseBNormalizado
+    )
+    const estadoColapsadoEnBaseE = this.cambioCoordenadasBE(estadoEnBaseBNormalizado);
 
     return { valorMedido, estadoColapsado: estadoColapsadoEnBaseE };
   };
@@ -86,8 +89,7 @@ function darIndiceAleatorioConPesos(acumulacionProbabilidades) {
   const aleatorio = random();
   return acumulacionProbabilidades.reduce((indice, valor) => {
     if (valor > aleatorio) return indice;
+    if (valor > 0.999) return indice; // para darle cierta tolerancia al cálculo numérico
     return indice + 1;
   }, 0);
 }
-
-

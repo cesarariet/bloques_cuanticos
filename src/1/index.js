@@ -4,13 +4,12 @@
 // El botón reiniciar hace que todos los bloques cuánticos reinicien
 // con un estado aleatorio
 
-import "../scripts/definicionDeBLoques.js";
-import { bloquesCuanticos } from "../scripts/definicionDeBLoques.js";
-import { crearArBloques } from "../scripts/definicionDeBLoques.js";
+import "../scripts/bloques_cuanticos_como_sistema_cuantico.js";
+import { crearArBloques } from "../scripts/bloques_cuanticos_como_sistema_cuantico.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const escena = document.getElementById("escena");
-  crearArBloques();
+  const arBloques = crearArBloques();
 
   const uiParaReiniciar = document.getElementById("uiParaReiniciar");
 
@@ -21,10 +20,10 @@ document.addEventListener("DOMContentLoaded", () => {
   escena.addEventListener("targetLost", () => {
     uiParaReiniciar.classList.remove("noVisible");
   });
+  function reiniciarEstados() {
+    arBloques[0].bloqueCuantico.establecerEstado()
+    uiParaReiniciar.classList.add("noVisible");
+  }
+  window.reiniciarEstados = reiniciarEstados;
 });
 
-function reiniciarEstados() {
-  bloquesCuanticos.forEach((bloque) => bloque.establecerEstado());
-  uiParaReiniciar.classList.add("noVisible");
-}
-window.reiniciarEstados = reiniciarEstados;

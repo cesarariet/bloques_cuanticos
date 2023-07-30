@@ -38,15 +38,13 @@ export default function ARBloqueCuantico(id, bloqueCuantico, observable) {
   this.a_text = arElemento.children[0];
   this.a_figure = arElemento.children[1];
   this.enEscena = false;
+  this.fueMedido = false;
 
   a_escena.appendChild(this.arBloque);
 
   this.detectado = () => {
-    bloqueCuantico.fueMedido
-      ? this.a_text.setAttribute("value", " ")
-      : this.a_text.setAttribute("value", "Primera medida\n del bloque.");
 
-    const valorMedido = bloqueCuantico.medirYColapsar(observable);
+    const valorMedido = this.bloqueCuantico.medirYColapsar(this);
 
     switch (valorMedido) {
       case 1:
