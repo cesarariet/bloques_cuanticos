@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <title>Bloques cuánticos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Una implementación de realidad aumentada para simular entidades cuánticas."
+    />
+    <meta
+      name="keywords"
+      content="mecánica cuántica, bloques cuánticos, superposición"
+    />
+    <meta name="author" content="Mario Estanislao Cesar Ariet" />
+    <script src="../scripts/AR/aframe.min.js"></script>
+    <script src="../scripts/AR/mindar-image-aframe.prod.js"></script>
+    <link rel="stylesheet" href="../css/style.css" />
+    <script defer src="bundle.js"></script>
+  </head>
+
+  <body>
+    <a-scene
+      id="escena"
+      mindar-image="imageTargetSrc: ../marcadores/mejores.mind; ui-scanning: no;"
+      renderer="colorManagement: true, physicallyCorrectLights"
+      vr-mode-ui="enabled: false"
+      device-orientation-permission-ui="enabled: false"
+    >
+      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+      <div id="uiParaReiniciar" class="infoPantalla">
+        Para reiniciar todos los bloques cuánticos presione el boton:
+        <button type="button" onclick="reiniciarEstados()">REINICIAR</button>
+      </div>
+    </a-scene>
+  </body>
+</html>

@@ -1,0 +1,45 @@
+<html>
+
+<head>
+  <title>Superposición de estados de bloques cuánticos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="description"
+    content="Una implementación de realidad aumentada para simular estados de superposición cuántica." />
+  <meta name="keywords" content="mecánica cuántica, bloques cuánticos, superposición" />
+  <meta name="author" content="Mario Estanislao Cesar Ariet" />
+  <link rel="stylesheet" href="../styles/styles.css" />
+  <script src="../scripts/AR/aframe.min.js"></script>
+  <script src="../"></script>
+  <script defer src="../scripts/bloques_cuanticos.js"></script>
+  <script defer src="intefazYLogica.js"></script>
+</head>
+
+<body>
+  <a-scene id="escena" mindar-image="imageTargetSrc: ../marcadores/mejores.mind; ui-scanning: no;"
+    renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
+    device-orientation-permission-ui="enabled: false">
+    <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+    <div id="uiParaReiniciar" class="infoPantalla noVisible">
+      Para preparar el bloque cuántico, seleccione el estado deseado y
+      presione PREPARAR.
+      <br />
+      <form>
+        <select id="estadoElegido">
+          <option value="0">Estado A</option>
+          <option value="33">Estado B</option>
+          <option value="66">Estano C</option>
+          <option value="100">Estado D</option>
+        </select>
+        <button type="button" onclick="prepararEstado()">PREPARAR</button>
+      </form>
+    </div>
+    <a-entity id="targetModelo" mindar-image-target="targetIndex: completar_numero">
+      <a-text position="0 -.5 0" wrap-count="50" text="align: center;" color="white" value=" "></a-text>
+      <a-plane color="blue" position="0 0 0" height=".5" width=".5" rotation="0 0 0"></a-plane>
+      <a-circle color="red" position="0 0 0" radius=".25"></a-circle>
+    </a-entity>
+  </a-scene>
+</body>
+
+</html>
