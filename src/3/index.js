@@ -8,6 +8,7 @@
 import '../scripts/bloques_cuanticos_como_sistema_cuantico'
 import { crearArBloques, bloquesCuanticos } from '../scripts/bloques_cuanticos_como_sistema_cuantico';
 import { entrelazarEnEstadoDeBell } from '../scripts/armarEstadoDeBell';
+import { comenzarMensajeria } from '../scripts/mesajeria';
 
 function contarBloquesVisibles(arBloques) {
   return arBloques.reduce((cantidad, arBloque) => {
@@ -34,12 +35,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const escena = document.getElementById("escena")
   const uiParaEntrelazarBloques = document.getElementById("uiParaEntrelazarBloques")
 
+  const mensajeria = comenzarMensajeria(escena, bloquesCuanticos, arBloques)
+
   //----------------------------------------------------------------
   // Cuando se detectan los bloques
   //----------------------------------------------------------------
 
   escena.addEventListener("targetFound", () => {
-    console.log(arBloques)
     if (contarBloquesVisibles(arBloques) === 2) {
       if (
         decidirSiAmbasCartasEstanDandoLaCara(arBloques) ||
@@ -90,6 +92,5 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
   window.entrelazarBloquesDetectados = entrelazarBloquesDetectados
-
 
 })
