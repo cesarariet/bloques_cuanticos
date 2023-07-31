@@ -1,0 +1,23 @@
+{
+  "name": "bloques_cuanticos",
+  "version": "1.0.0",
+  "description": "",
+  "private": "true",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack --mode development",
+    "serve": "webpack serve --mode development --open",
+    "build": "webpack --mode production"
+  },
+  "author": "Mario Estanislao Cesar Ariet",
+  "license": "ISC",
+  "devDependencies": {
+    "util": "^0.12.5",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  },
+  "dependencies": {
+    "ably": "^1.2.42",
+    "mathjs": "^11.9.1"
+  }
+}

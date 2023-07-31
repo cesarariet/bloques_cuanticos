@@ -12,14 +12,12 @@
       content="mecánica cuántica, bloques cuánticos, superposición"
     />
     <meta name="author" content="Mario Estanislao Cesar Ariet" />
-    <link rel="stylesheet" href="../styles/styles.css" />
-    <script src="../scripts/aframe.min.js"></script>
-    <script src="../scripts/mindar-image-aframe.prod.js"></script>
-    <script src="../scripts/math.js"></script>
-    <script src="https://cdn.ably.com/lib/ably.min-1.js"></script>
-    <script defer src="../scripts/bloques_cuanticos.js"></script>
-    <script defer src="intefazYLogica.js"></script>
+    <script src="../scripts/AR/aframe.min.js"></script>
+    <script src="../scripts/AR/mindar-image-aframe.prod.js"></script>
+    <link rel="stylesheet" href="../css/style.css" />
+    <script defer src="bundle.js"></script>
   </head>
+
   <body>
     <a-scene
       id="escena"
@@ -33,26 +31,6 @@
         Para reiniciar todos los bloques cuánticos presione el boton:
         <button type="button" onclick="reiniciarEstados()">REINICIAR</button>
       </div>
-      <a-entity
-        id="targetModelo"
-        mindar-image-target="targetIndex: completar_numero"
-      >
-        <a-text
-          position="0 -.5 0"
-          wrap-count="50"
-          text="align: center;"
-          color="white"
-          value=" "
-        ></a-text>
-        <a-plane
-          color="red"
-          position="0 0 0"
-          height=".5"
-          width=".5"
-          rotation="0 0 0"
-        ></a-plane>
-        <a-circle color="blue" position="0 0 0" radius=".25"></a-circle>
-      </a-entity>
     </a-scene>
   </body>
 </html>
