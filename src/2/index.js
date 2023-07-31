@@ -32,14 +32,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     bloquesCuanticos.establecerEstado(armarEstadoParaUnBloque(opcionElegidaEnPorcentaje, arBloque))
 
-    arBloque.a_text.setAttribute(
-      "value",
-      "Estado preparado\nRetirar y volver\npara medir."
-    );
     arBloque.a_figure.setAttribute("color", "grey");
 
     uiParaReiniciar.classList.add("noVisible");
   }
   window.prepararEstado = prepararEstado
-})
 
+})
