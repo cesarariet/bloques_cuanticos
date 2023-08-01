@@ -4,8 +4,6 @@
 // El botón reiniciar hace que todos los bloques cuánticos reinicien
 // con un estado aleatorio
 // ----------------------------------------------------------------
-//import '../scripts/definiciónDeBloques'
-//import { crearArBloques } from '../scripts/definiciónDeBloques';
 import '../scripts/bloques_cuanticos_como_sistema_cuantico'
 import { bloquesCuanticos, crearArBloques } from "../scripts/bloques_cuanticos_como_sistema_cuantico";
 import { armarEstadoParaUnBloque } from "../scripts/armarEstadoParaUnBloque";
