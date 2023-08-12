@@ -12,12 +12,12 @@
   "author": "Mario Estanislao Cesar Ariet",
   "license": "ISC",
   "devDependencies": {
-    "util": "^0.12.5",
-    "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^4.15.1"
+    "util": "0.12.5",
+    "webpack-cli": "5.1.4",
+    "webpack-dev-server": "4.15.1"
   },
   "dependencies": {
-    "ably": "^1.2.42",
-    "mathjs": "^11.9.1"
+    "ably": "1.2.42",
+    "mathjs": "11.9.1"
   }
 }
